@@ -1,0 +1,62 @@
+:root {
+  --theme-color: #000000;
+  --page-py: 12;
+  --profile-mb: 0;
+  --experience-mb: 0;
+  --plain-footnote-px: 8;
+  --plain-contact-px: 8;
+  --font-base-size: 14;
+}
+
+.text-section {
+  font-size: calc(var(--font-base-size) * 1.15);
+}
+
+.text-title {
+  font-size: calc(var(--font-base-size) * 1.1);
+}
+
+.text-details {
+  font-size: var(--font-base-size);
+}
+
+.theme-text-color {
+  color: var(--theme-color);
+}
+
+.theme-marker-color::marker {
+  color: var(--theme-color);
+}
+
+.theme-divider-color {
+  border-color: var(--theme-color);
+  opacity: 0.5;
+}
+
+.custom-page {
+  letter-spacing: 0.8px;
+  padding-top: var(--page-py);
+  padding-bottom: var(--page-py);
+}
+
+.custom-profile {
+  margin-bottom: var(--profile-mb);
+}
+
+.custom-experience {
+  margin-bottom: var(--experience-mb);
+}
+
+.plain-footnote-item {
+  padding-left: var(--plain-footnote-px);
+  padding-right: var(--plain-footnote-px);
+}
+
+.plain-contact-item {
+  padding-left: var(--plain-contact-px);
+  padding-right: var(--plain-contact-px);
+}
+
+.details-font {
+  font-size: var(--detail-font);
+}
