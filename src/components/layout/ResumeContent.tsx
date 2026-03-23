@@ -40,13 +40,13 @@ const ResumeContent = React.forwardRef<HTMLDivElement, object>((_, ref) => {
   );
 
   return (
-    <div id="export-html" ref={ref}>
+    <div id="export-html" ref={ref} className="bg-white">
       {Array.from({ length: experienceByPage.maxPage }, (_, i) => i + 1).map(
         (pageNum, index) => (
           <A4Background key={pageNum} page={pageNum}>
             <div
-              style={styleVariables}
-              className="w-[210mm] h-[297mm] bg-white overflow-hidden px-10 shadow-md custom-page"
+              style={{...styleVariables, backgroundColor: '#ffffff'}}
+              className="w-[210mm] max-w-full h-[297mm] bg-white overflow-hidden px-10 shadow-none mx-auto"
             >
               {index === 0 && (
                 <ProfileList

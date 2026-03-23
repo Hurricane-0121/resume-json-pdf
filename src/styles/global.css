@@ -53,6 +53,7 @@ input::placeholder {
 
 .setting-button {
   @apply fixed top-4 max-md:top-16 px-1 py-2 text-xs font-semibold bg-white text-slate-800 rounded-md shadow-md flex items-center justify-center max-sm:scale-75;
+  min-width: 5rem;
 }
 
 .setting-title {
@@ -69,4 +70,40 @@ input::placeholder {
 
 .message-item {
   @apply flex items-center bg-white border border-gray-400 rounded-lg shadow-sm p-3 max-sm:p-2 mb-2 text-gray-800 text-sm max-sm:text-xs font-semibold;
+}
+
+.no-shadow * {
+  box-shadow: none !important;
+}
+
+.no-transition,
+.no-transition * {
+  transition: none !important;
+}
+
+/* .preview-container .bg-white,
+#export-html .bg-white {
+  background-color: #ffffff !important;
+} */
+
+/* 预览区滚动条样式 - 去除灰色 */
+.preview-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+}
+.preview-container::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+.preview-container::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 4px;
+}
+.preview-container::-webkit-scrollbar-thumb:hover {
+  background-color: #aaaaaa;
+}
+/* Firefox 兼容 */
+.preview-container {
+  scrollbar-width: thin;
+  scrollbar-color: #cccccc #ffffff;
 }

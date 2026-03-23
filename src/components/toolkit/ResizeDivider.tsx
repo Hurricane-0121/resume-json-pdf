@@ -1,61 +1,64 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 interface ResizeDividerProps {
-  onResize: (deltaX: number) => void;
-  direction?: "horizontal" | "vertical";
+  onResize: (delta: number) => void;  // 拖拽时传递宽度变化量
+  direction?: 'horizontal' | 'vertical';
+  className?: string;
 }
 
-const ResizeDivider: React.FC<ResizeDividerProps> = ({ 
-  onResize, 
-  direction = "horizontal" 
+const ResizeDivider: React.FC<ResizeDividerProps> = ({
+  onResize,
+  direction = 'horizontal',
+  className = '',
 }) => {
+  const dividerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const startXRef = useRef(0);
+  const startPosRef = useRef(0);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    startXRef.current = e.clientX;
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-  };
+    setIsDragging(true);
+    startPosRef.current = direction === 'horizontal' ? e.clientX : e.clientY;
+  }, [direction]);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!isDragging) return;
+    const currentPos = direction === 'horizontal' ? e.clientX : e.clientY;
+    const delta = currentPos - startPosRef.current;
+    if (delta !== 0) {
+      onResize(delta);
+      startPosRef.current = currentPos; // 更新起始位置，实现连续增量
+    }
+  }, [isDragging, direction, onResize]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      const deltaX = e.clientX - startXRef.current;
-      onResize(deltaX);
-      startXRef.current = e.clientX;
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
     if (isDragging) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    } else {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     }
-
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, onResize]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
     <div
-      className={`
-        relative z-30
-        ${direction === "horizontal" 
-          ? "w-1 cursor-col-resize hover:w-1.5" 
-          : "h-1 cursor-row-resize hover:h-1.5"
-        }
-        bg-gray-300 hover:bg-blue-400 active:bg-blue-500
-        transition-all duration-150
-      `}
+      ref={dividerRef}
+      className={`cursor-col-resize bg-gray-300 hover:bg-gray-400 active:bg-gray-500 transition-colors ${className}`}
       onMouseDown={handleMouseDown}
-    >
-      <div className="absolute inset-0 -ml-1 -mr-1" />
-    </div>
+      style={{
+        width: direction === 'horizontal' ? '4px' : '100%',
+        height: direction === 'vertical' ? '4px' : '100%',
+      }}
+    />
   );
 };
 

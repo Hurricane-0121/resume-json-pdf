@@ -119,21 +119,23 @@ const SettingEditor: React.FC = () => {
     <div className="w-full h-full overflow-y-auto">
       {/* 顶部按钮区域 */}
       <div className="sticky top-0 bg-white z-20 pb-2 mb-2 border-b border-gray-200 px-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center gap-4">
           <EditorModeToggle />
-          <div className="flex gap-2">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
             <button
               onClick={handleCancelEdit}
-              className="setting-button w-24"
+              className="px-4 py-2 text-xs font-semibold bg-white text-slate-800 rounded-md shadow-md flex items-center justify-center whitespace-nowrap"
             >
               <div className="flex items-center justify-center">
                 <TbLocationCancel className="mr-2" />
                 <span>{locale.common.CANCEL}</span>
               </div>
             </button>
+            <button>
+            </button>
             <button
               onClick={handleConfirmEdit}
-              className="setting-button w-24"
+              className="px-4 py-2 text-xs font-semibold bg-white text-slate-800 rounded-md shadow-md flex items-center justify-center whitespace-nowrap"
             >
               <div className="flex items-center justify-center">
                 <RiSave3Fill className="mr-2" />
@@ -230,7 +232,7 @@ const SettingEditor: React.FC = () => {
               <div className="flex justify-between items-center">
                 <h3 className="setting-title">{formatTitle(locale.field.PROFILE_MARGIN_BOTTOM)}</h3>
                 <StyleSlider
-                  min={8}
+                  min={5}
                   max={24}
                   value={tempStyleStore.profileMb}
                   onChange={(v) => handleStyleChange("profileMb", v)}
@@ -240,7 +242,7 @@ const SettingEditor: React.FC = () => {
               <div className="flex justify-between items-center">
                 <h3 className="setting-title">{formatTitle(locale.field.EXPERIENCE_MARGIN_BOTTOM)}</h3>
                 <StyleSlider
-                  min={8}
+                  min={5}
                   max={24}
                   value={tempStyleStore.experienceMb}
                   onChange={(v) => handleStyleChange("experienceMb", v)}
@@ -250,7 +252,7 @@ const SettingEditor: React.FC = () => {
               <div className="flex justify-between items-center">
                 <h3 className="setting-title">{formatTitle(locale.field.DETAILS_FONT)}</h3>
                 <StyleSlider
-                  min={14}
+                  min={10}
                   max={16}
                   value={tempStyleStore.detailsFont}
                   onChange={(v) => handleStyleChange("detailsFont", v)}
